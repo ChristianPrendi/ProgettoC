@@ -1,0 +1,46 @@
+creata da processi che nascono e muoiono senza problemi 
+
+$ IPCS vediamo memorie condivise create 
+
+dobbiamo imporre dei sistemi di sincronizzazione (semafori )
+
+gli ID delle memCondi sono ereditati da padre in figlio 
+
+
+memCondi deve essere creata o deveessere l'ID interno con una coda di messaggi
+
+
+
+shmget()
+    serve per creare una memCondivisa oper ottenere l'ID di un segmento esistente   
+
+shmet(); 
+    da un ID restituisce un puntatore
+shmdt()
+    sgancio il puntatore che usavo per accedere alla memoria condivisa 
+shmctl() cancella il segmento di SM (se tutti i processi si sono staccati )
+
+int shmget(key_t key,size_t size, int shmflg);
+    key=chiave generata da IPC_PRIVATE ouna KEY restituita da ftok();
+    size= intero positivo identifica la dimensione del segmento syzeof();
+    shmflg=
+        IPC_CREAT se non esiste creala 
+        IPC_EXCL=. Se è stato specificato IPC_CREAT, e un segmento con la key specificata esiste già, fallisce con errore EEXIST.
+
+void * shmat (int shmid, const void *shmaddr, in shmflg );
+shmid=ID
+shmaddr==NULL;
+shmflg = SHM_RDONLY o 0 
+
+int shmdt(const void *shmaddr);// usata da un processo per staccarsi 
+shmaddr=indirizzo punto accesso trovato in shmat();
+
+
+
+memoria condivisa pid
+
+
+libro mastro 
+magari implementare dei semafori che gestiscono date 
+aree del libro per maggiore efficenza 
+
